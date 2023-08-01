@@ -22,7 +22,7 @@ type IProduct interface {
 }
 
 type IProductService interface {
-	GetAll() ([]IProduct, error)
+	// GetAll() ([]IProduct, error)
 	GetByID(id string) (IProduct, error)
 	Create(name string, price float64) (IProduct, error)
 	Enable(product IProduct) (IProduct, error)
