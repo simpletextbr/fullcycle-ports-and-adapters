@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/simpletextbr/fullcycle-ports-and-adapters/adapters/db"
+	"github.com/simpletextbr/fullcycle-ports-and-adapters/application"
 	"github.com/stretchr/testify/require"
 )
 
@@ -53,4 +54,26 @@ func TestProductDb_Get(t *testing.T) {
 	require.Equal(t, "Product Test", product.GetName())
 	require.Equal(t, 10.30, product.GetPrice())
 	require.Equal(t, "disabled", product.GetStatus())
+}
+
+func TestProductDb_Save(t *testing.T) {
+	setUp()
+	defer Db.Close()
+
+	productDb := db.NewProductDb(Db)
+	product := application.NewProduct()
+	product.Name = "Product Test"
+	product.Price = 10.30
+
+	_, err := productDb.Save(product)
+	require.Nil(t, err)
+	require.Equal(t, product.Name, product.GetName())
+	require.Equal(t, product.Price, product.GetPrice())
+	require.Equal(t, product.Status, product.GetStatus())
+
+	product.Status = "enabled"
+
+	_, err = productDb.Save(product)
+	require.Nil(t, err)
+	require.Equal(t, product.Status, product.GetStatus())
 }
