@@ -66,5 +66,4 @@ func TestRun(t *testing.T) {
 	resultExpected = fmt.Sprintf("Product ID %s\n with the name %s\n with the price %f\n and status %s\n has been found", productId, productName, productPrice, productStatus)
 	require.Nil(t, err)
 	require.Equal(t, resultExpected, result)
-
 }
