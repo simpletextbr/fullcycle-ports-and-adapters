@@ -16,10 +16,8 @@ type WebServer struct {
 	Service application.IProductService
 }
 
-func MakeNewWebServer(service application.IProductService) WebServer {
-	return WebServer{
-		Service: service,
-	}
+func MakeNewWebServer() WebServer {
+	return WebServer{}
 }
 
 func (s WebServer) Serve() {
