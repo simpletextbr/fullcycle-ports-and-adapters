@@ -4,6 +4,8 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/simpletextbr/fullcycle-ports-and-adapters/adapters/cli"
 	"github.com/spf13/cobra"
 )
@@ -20,7 +22,11 @@ var pcliCmd = &cobra.Command{
 	Long: `pcli is a cli created on the course Full Cycle - Ports and Adapters by Code Education.
 	You can use it to manipulate products.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		cli.Run(&productService, action, productId, productName, price)
+		res, err := cli.Run(&productService, action, productId, productName, price)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println(res)
 	},
 }
 
@@ -36,7 +42,7 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// pcliCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	pcliCmd.Flags().StringVarP(&action, "action", "a", "", "Action to be executed(create, update, delete, get)")
+	pcliCmd.Flags().StringVarP(&action, "action", "a", "enable", "Action to be executed(create, enable, disable, get)")
 	pcliCmd.Flags().StringVarP(&productId, "id", "i", "", "Product ID")
 	pcliCmd.Flags().StringVarP(&productName, "name", "n", "", "Product Name")
 	pcliCmd.Flags().Float64VarP(&price, "price", "p", 0, "Product Price")
